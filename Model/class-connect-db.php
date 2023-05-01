@@ -3,7 +3,7 @@
 class Connection
 {
     public $host = "127.0.0.1",
-    $db_name = "db_sklh",
+    $db_name = "db_sekolah",
     $user = "root",
     $pass = "",
     $db;
