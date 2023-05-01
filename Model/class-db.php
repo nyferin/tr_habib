@@ -70,17 +70,17 @@ class DatabaseFunction
     {
         if ($role == "Guru") {
             $query = $db->prepare(
-                "SELECT * FROM tb_guru WHERE id = :id ORDER BY nip"
+                "SELECT * FROM tb_guru WHERE id = :id"
             );
 
         } else if ($role == "Siswa") {
             $query = $db->prepare(
-                "SELECT * FROM tb_siswa WHERE id = :id ORDER BY nis"
+                "SELECT * FROM tb_siswa WHERE id = :id"
             );
 
         } else if ($role == "Staff") {
             $query = $db->prepare(
-                "SELECT * FROM tb_staff WHERE id = :id ORDER BY nip"
+                "SELECT * FROM tb_staff WHERE id = :id"
             );
 
         } else if ($role == "Mapel") {
@@ -243,6 +243,33 @@ class DatabaseFunction
             INNER JOIN tb_guru ON tb_jadwal.id_guru = tb_guru.id
             INNER JOIN tb_mapel ON tb_kodekelas.id_mapel = tb_mapel.id
             WHERE tb_jadwal.id_kodekelas = :id
+            ORDER BY 
+                CASE
+                    WHEN hari = 'Senin' THEN 1
+                    WHEN hari = 'Selasa' THEN 2
+                    WHEN hari = 'Rabu' THEN 3
+                    WHEN hari = 'Kamis' THEN 4
+                    WHEN hari = 'Jumat' THEN 5
+                END, jam"
+        );
+
+        $query->bindParam(":id", $id);
+
+        $query->execute();
+
+        $data = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function selectJoinJadwalByIdUser($db, $id)
+    {
+        $query = $db->prepare(
+            "SELECT tb_jadwal.id_kodekelas AS id, tb_kodekelas.kode AS kode_kelas, tb_mapel.mapel, tb_guru.nip, tb_guru.nama AS nama_guru,tb_jadwal.hari, tb_jadwal.jam
+            FROM tb_jadwal
+            INNER JOIN tb_kodekelas ON tb_jadwal.id_kodekelas = tb_kodekelas.id
+            INNER JOIN tb_guru ON tb_jadwal.id_guru = tb_guru.id
+            INNER JOIN tb_mapel ON tb_kodekelas.id_mapel = tb_mapel.id
+            WHERE tb_jadwal.id_guru = :id
             ORDER BY 
                 CASE
                     WHEN hari = 'Senin' THEN 1
@@ -508,25 +535,6 @@ class DatabaseFunction
         }
     }
     
-    public function updateMapelJadwal($db, $kode2, $mapel, $kode1)
-    {
-        $query = $db->prepare(
-            "UPDATE tb_jadwal SET kode = :kode2, id_mapel = :mapel WHERE kode = :kode1"
-        );
-
-        $query->bindParam(":mapel", $mapel);
-        $query->bindParam(":kode2", $kode2);
-        $query->bindParam(":kode1", $kode1);
-
-        if ($query->execute()) {
-            return true;
-
-        } else {
-            return false;
-
-        }
-    }
-    
     public function updateJadwalGuru($db, $guru, $kelas)
     {
         $query = $db->prepare(
@@ -555,6 +563,31 @@ class DatabaseFunction
         $query->bindParam(":jam1", $jam1);
         $query->bindParam(":hari2", $hari2);
         $query->bindParam(":jam2", $jam2);
+        $query->bindParam(":id", $id);
+
+        if ($query->execute()) {
+            return true;
+
+        } else {
+            return false;
+
+        }
+    }
+
+    public function updatePassword($db, $role, $id, $password)
+    {
+        if ($role == "Guru") {
+            $query = $db->prepare(
+                "UPDATE tb_guru SET password = :password WHERE id = :id"
+            );
+        } else  if ($role == "Siswa"){
+            $query = $db->prepare(
+                "UPDATE tb_siswa SET password = :password WHERE id = :id"
+            );
+        }
+        
+
+        $query->bindParam(":password", $password);
         $query->bindParam(":id", $id);
 
         if ($query->execute()) {
