@@ -9,7 +9,7 @@ $db = new DatabaseFunction();
 $ni = $_POST["txtni"];
 $password = $_POST["txtpassword"];
 
-$db_users = $db->selectAllUser($conn->db);
+$db_users = $db->selectUserAll($conn->db);
 
 session_start();
 
