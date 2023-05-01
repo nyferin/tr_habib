@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Bulan Mei 2023 pada 05.30
+-- Waktu pembuatan: 01 Bulan Mei 2023 pada 09.50
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.33
 
@@ -69,7 +69,7 @@ CREATE TABLE `tb_kelas` (
 
 CREATE TABLE `tb_kodekelas` (
   `id` int(11) NOT NULL,
-  `kode` int(11) NOT NULL,
+  `kode` varchar(255) NOT NULL,
   `id_mapel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
