@@ -45,25 +45,25 @@ $db_jadwal = $db->selectJoinJadwalByIdUser($conn->db, $id);
     <h1>
         Jadwal Sekolah
     </h1>
-    <a href="view-home-staff.php">Back</a>
+    <a href="view-home-siswa.php">Back</a>
 
     <table>
+        <tr>
+            <th>Kode Kelas</th>
+            <th>Mapel</th>
+            <th>Jam</th>
+        </tr>
         <?php
         if (count($db_jadwal) == 0) {
             ?>
             <tr>
-                <td colspan="4">
+                <td colspan="3">
                     <i>No record.</i>
                 </td>
             </tr>
             <?php
         } else {
             ?>
-            <tr>
-                <th>Kode Kelas</th>
-                <th>Mapel</th>
-                <th>Jam</th>
-            </tr>
             <?php
             foreach ($db_jadwal as $key) {
                 ?>

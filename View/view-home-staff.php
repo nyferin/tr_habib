@@ -30,13 +30,13 @@ $db = new DatabaseFunction();
     </h1>
     <a href="../Controller/controller-logout.php">Logout</a>
     <ul>
-        <li>
+        <!-- <li>
             <a href="view-data-user.php?menu=Staff">Staff 
                 (<?=
                     count($db->selectAllData($conn->db, "Staff"))
                     ?>)
             </a>
-        </li>
+        </li> -->
         <li>
             <a href="view-data-user.php?menu=Guru">Guru 
                 (<?=

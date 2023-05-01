@@ -32,10 +32,6 @@ $db = new DatabaseFunction();
     <ul>
         <li>
             <a href="view-data-jadwal-guru.php">Jadwal Mengajar
-                (<?=
-                    count($db->selectJoinJadwalUnique($conn->db))
-
-                    ?>)
             </a>
         </li>
         <li>

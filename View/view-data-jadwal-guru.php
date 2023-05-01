@@ -45,13 +45,12 @@ $db_jadwal = $db->selectJoinJadwalByIdUser($conn->db, $id);
     <h1>
         Jadwal Mengajar
     </h1>
-    <a href="view-home-staff.php">Back</a>
+    <a href="view-home-guru.php">Back</a>
 
     <table>
         <tr>
             <th>Kode Kelas</th>
             <th>Mapel</th>
-            <th>Hari</th>
             <th>Jam</th>
         </tr>
         <?php
@@ -64,17 +63,21 @@ $db_jadwal = $db->selectJoinJadwalByIdUser($conn->db, $id);
             </tr>
             <?php
         } else {
+            ?>
+            <?php
             foreach ($db_jadwal as $key) {
                 ?>
+                <tr>
+                    <th colspan="3">
+                        <?= $key['hari'] ?>
+                    </th>
+                </tr>
                 <tr>
                     <td>
                         <a href="view-data-kelas-guru.php?id=<?= $key['id'] ?>"><?= $key['kode_kelas'] ?></a>
                     </td>
                     <td>
                         <?= $key['mapel'] ?>
-                    </td>
-                    <td>
-                        <?= $key['hari'] ?>
                     </td>
                     <td>
                         <?= $key['jam'] ?>
